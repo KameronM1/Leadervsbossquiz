@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&display=swap');
 
 /* Base Reset */
 * {
@@ -8,9 +9,9 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #f3e7ff 0%, #faf6ff 100%);
-  color: #333;
+  font-family: 'Kanit', sans-serif;
+  background: linear-gradient(135deg, #f2ecff 0%, #faf6ff 100%);
+  color: #2a2a2a;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -21,59 +22,60 @@ body {
 .quiz-container {
   background: #fff;
   padding: 40px 30px;
-  max-width: 650px;
+  max-width: 700px;
   width: 100%;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(94, 44, 165, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(128, 0, 128, 0.15);
   text-align: center;
   animation: fadeIn 0.8s ease-in-out;
 }
 
 h1 {
-  font-size: 28px;
-  color: #5e2ca5;
+  font-size: 30px;
+  color: #6b2eb5;
   margin-bottom: 25px;
   font-weight: 700;
 }
 
 .question p {
   font-weight: 600;
-  font-size: 20px;
-  color: #5e2ca5;
+  font-size: 22px;
+  color: #6b2eb5;
   margin-bottom: 10px;
 }
 
 blockquote {
   font-style: italic;
-  font-size: 22px;
+  font-size: 24px;
   margin: 15px auto 25px;
-  padding: 15px 20px;
-  background-color: #f8f2ff;
-  border-left: 5px solid #a678e2;
-  border-radius: 8px;
-  color: #2d2d2d;
-  max-width: 500px;
+  padding: 16px 24px;
+  background-color: #f1e9ff;
+  border-left: 6px solid #a164e9;
+  border-radius: 10px;
+  color: #2e2e2e;
+  max-width: 520px;
 }
 
 label {
   display: block;
-  background: #f4f1fa;
-  margin: 12px auto;
-  padding: 14px 18px;
-  border-radius: 10px;
+  background: #f8f3ff;
+  margin: 14px auto;
+  padding: 16px 20px;
+  border-radius: 12px;
   border: 2px solid transparent;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 17px;
   transition: all 0.25s ease;
-  color: #444;
+  color: #333;
   text-align: left;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
 }
 
 label:hover {
   background-color: #ece4ff;
-  border-color: #aa80ff;
+  border-color: #a164e9;
 }
 
 input[type="radio"] {
@@ -81,12 +83,12 @@ input[type="radio"] {
 }
 
 button {
-  background-color: #7e57c2;
+  background-color: #8e44ec;
   color: white;
   border: none;
-  padding: 14px 30px;
+  padding: 14px 32px;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -94,50 +96,52 @@ button {
 }
 
 button:hover {
-  background-color: #5e35b1;
+  background-color: #6c2ac2;
 }
 
 .result {
-  margin-top: 30px;
-  font-size: 18px;
+  margin-top: 35px;
+  font-size: 19px;
   color: #333;
-  background: #f0e9ff;
-  padding: 20px;
-  border-radius: 12px;
+  background: #f2e7ff;
+  padding: 24px;
+  border-radius: 14px;
   text-align: left;
   animation: fadeIn 0.8s ease-in-out;
 }
 
 .result h2 {
-  color: #5e2ca5;
-  margin-bottom: 10px;
+  color: #6b2eb5;
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 24px;
 }
 
 .result ul {
   list-style-type: disc;
-  padding-left: 20px;
-  margin-top: 10px;
+  padding-left: 24px;
+  margin-top: 12px;
 }
 
 .result li {
-  margin-bottom: 8px;
-  line-height: 1.5;
+  margin-bottom: 10px;
+  line-height: 1.6;
 }
 
 #restartBtn {
-  margin-top: 25px;
-  padding: 12px 28px;
-  background-color: #6a1b9a;
+  margin-top: 30px;
+  padding: 13px 30px;
+  background-color: #7b1fa2;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
+  border-radius: 10px;
+  font-size: 16px;
   font-weight: 600;
   transition: background-color 0.3s ease;
 }
 
 #restartBtn:hover {
-  background-color: #4a148c;
+  background-color: #580e85;
 }
 
 @media (max-width: 600px) {
@@ -146,7 +150,7 @@ button:hover {
   }
 
   h1 {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .question p, blockquote {
@@ -154,7 +158,7 @@ button:hover {
   }
 
   label {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   button, #restartBtn {
@@ -165,3 +169,4 @@ button:hover {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
