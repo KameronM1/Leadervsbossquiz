@@ -8,75 +8,113 @@
 <body>
 
 <div class="quiz-container">
-  <h1>Boss vs. Leader – What Do You Think?</h1>
-
-  <form id="quizForm">
-    <div class="question">
-      <p>1. Who says “Let’s do it together”?</p>
-      <label><input type="radio" name="q1" value="leader"> Leader</label><br>
-      <label><input type="radio" name="q1" value="boss"> Boss</label>
-    </div>
-
-    <div class="question">
-      <p>2. Who points fingers when things go wrong?</p>
-      <label><input type="radio" name="q2" value="boss"> Boss</label><br>
-      <label><input type="radio" name="q2" value="leader"> Leader</label>
-    </div>
-
-    <div class="question">
-      <p>3. Who celebrates team achievements?</p>
-      <label><input type="radio" name="q3" value="leader"> Leader</label><br>
-      <label><input type="radio" name="q3" value="boss"> Boss</label>
-    </div>
-
-    <div class="question">
-      <p>4. Who uses their title to demand respect?</p>
-      <label><input type="radio" name="q4" value="boss"> Boss</label><br>
-      <label><input type="radio" name="q4" value="leader"> Leader</label>
-    </div>
-
-    <div class="question">
-      <p>5. Who creates pressure and fear?</p>
-      <label><input type="radio" name="q5" value="boss"> Boss</label><br>
-      <label><input type="radio" name="q5" value="leader"> Leader</label>
-    </div>
-
-    <div class="question">
-      <p>6. Who empowers others to do their best?</p>
-      <label><input type="radio" name="q6" value="leader"> Leader</label><br>
-      <label><input type="radio" name="q6" value="boss"> Boss</label>
-    </div>
-
-    <button type="button" onclick="checkAnswers()">Submit</button>
-
-    <div class="result" id="result"></div>
-  </form>
+  <h1>Boss vs. Leader – Who Said It?</h1>
+  <div id="quiz"></div>
+  <div class="result" id="result"></div>
+  <button id="restartBtn" style="display:none;" onclick="startQuiz()">Retake Quiz</button>
 </div>
 
 <script>
-  function checkAnswers() {
-    const answers = {
-      q1: "leader",
-      q2: "boss",
-      q3: "leader",
-      q4: "boss",
-      q5: "boss",
-      q6: "leader"
-    };
+const questionsPool = [
+  { quote: "Let’s do it together", answer: "leader" },
+  { quote: "Do it", answer: "boss" },
+  { quote: "How can we fix this?", answer: "leader" },
+  { quote: "Who messed this up?", answer: "boss" },
+  { quote: "Great job, team!", answer: "leader" },
+  { quote: "That was all me", answer: "boss" },
+  { quote: "Respect is earned", answer: "leader" },
+  { quote: "Respect my position", answer: "boss" },
+  { quote: "I trust you to handle it", answer: "leader" },
+  { quote: "Let me see everything before you send it", answer: "boss" },
+  { quote: "It’s okay to make mistakes and learn", answer: "leader" },
+  { quote: "Don’t mess this up", answer: "boss" }
+];
 
-    let score = 0;
-    let total = Object.keys(answers).length;
+let quizQuestions = [];
+let currentIndex = 0;
+let score = 0;
+let answersLog = [];
 
-    for (let q in answers) {
-      const selected = document.querySelector(`input[name="${q}"]:checked`);
-      if (selected && selected.value === answers[q]) {
-        score++;
-      }
-    }
-
-    const result = document.getElementById("result");
-    result.textContent = `You got ${score} out of ${total} correct!`;
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
+  return array;
+}
+
+function startQuiz() {
+  quizQuestions = shuffle([...questionsPool]).slice(0, 6);
+  currentIndex = 0;
+  score = 0;
+  answersLog = [];
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("restartBtn").style.display = "none";
+  showQuestion();
+}
+
+function showQuestion() {
+  const container = document.getElementById("quiz");
+  container.innerHTML = "";
+
+  if (currentIndex < quizQuestions.length) {
+    const q = quizQuestions[currentIndex];
+    const html = `
+      <div class="question">
+        <p>Who is more likely to say this?</p>
+        <blockquote>“${q.quote}”</blockquote>
+        <label><input type="radio" name="answer" value="leader"> Leader</label><br>
+        <label><input type="radio" name="answer" value="boss"> Boss</label><br><br>
+        <button onclick="submitAnswer()">Submit</button>
+      </div>
+    `;
+    container.innerHTML = html;
+  } else {
+    showResults();
+  }
+}
+
+function submitAnswer() {
+  const selected = document.querySelector('input[name="answer"]:checked');
+  if (!selected) return;
+
+  const currentQuestion = quizQuestions[currentIndex];
+  const correct = selected.value === currentQuestion.answer;
+
+  if (correct) score++;
+
+  answersLog.push({
+    quote: currentQuestion.quote,
+    yourAnswer: selected.value,
+    correctAnswer: currentQuestion.answer,
+    isCorrect: correct
+  });
+
+  currentIndex++;
+  showQuestion();
+}
+
+function showResults() {
+  const container = document.getElementById("quiz");
+  container.innerHTML = "";
+  const result = document.getElementById("result");
+  let output = `<h2>You got ${score} out of 6 correct</h2>`;
+
+  if (score === 6) {
+    output += `<p>🎉 Well done! You nailed it!</p>`;
+  } else {
+    output += `<ul>`;
+    answersLog.forEach((item, index) => {
+      output += `<li><strong>Q${index + 1}:</strong> "${item.quote}" – You answered: ${item.yourAnswer} ${item.isCorrect ? '✅' : '❌'} (Correct: ${item.correctAnswer})</li>`;
+    });
+    output += `</ul>`;
+  }
+
+  result.innerHTML = output;
+  document.getElementById("restartBtn").style.display = "inline-block";
+}
+
+startQuiz();
 </script>
 
 </body>
