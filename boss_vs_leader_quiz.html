@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Boss vs. Leader Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Boss vs. Leader – What Do You Think?</h1>
+
+  <form id="quizForm">
+    <div class="question">
+      <p>1. Who says “Let’s do it together”?</p>
+      <label><input type="radio" name="q1" value="leader"> Leader</label><br>
+      <label><input type="radio" name="q1" value="boss"> Boss</label>
+    </div>
+
+    <div class="question">
+      <p>2. Who points fingers when things go wrong?</p>
+      <label><input type="radio" name="q2" value="boss"> Boss</label><br>
+      <label><input type="radio" name="q2" value="leader"> Leader</label>
+    </div>
+
+    <div class="question">
+      <p>3. Who celebrates team achievements?</p>
+      <label><input type="radio" name="q3" value="leader"> Leader</label><br>
+      <label><input type="radio" name="q3" value="boss"> Boss</label>
+    </div>
+
+    <div class="question">
+      <p>4. Who uses their title to demand respect?</p>
+      <label><input type="radio" name="q4" value="boss"> Boss</label><br>
+      <label><input type="radio" name="q4" value="leader"> Leader</label>
+    </div>
+
+    <div class="question">
+      <p>5. Who creates pressure and fear?</p>
+      <label><input type="radio" name="q5" value="boss"> Boss</label><br>
+      <label><input type="radio" name="q5" value="leader"> Leader</label>
+    </div>
+
+    <div class="question">
+      <p>6. Who empowers others to do their best?</p>
+      <label><input type="radio" name="q6" value="leader"> Leader</label><br>
+      <label><input type="radio" name="q6" value="boss"> Boss</label>
+    </div>
+
+    <button type="button" onclick="checkAnswers()">Submit</button>
+
+    <div class="result" id="result"></div>
+  </form>
+</div>
+
+<script>
+  function checkAnswers() {
+    const answers = {
+      q1: "leader",
+      q2: "boss",
+      q3: "leader",
+      q4: "boss",
+      q5: "boss",
+      q6: "leader"
+    };
+
+    let score = 0;
+    let total = Object.keys(answers).length;
+
+    for (let q in answers) {
+      const selected = document.querySelector(`input[name="${q}"]:checked`);
+      if (selected && selected.value === answers[q]) {
+        score++;
+      }
+    }
+
+    const result = document.getElementById("result");
+    result.textContent = `You got ${score} out of ${total} correct!`;
+  }
+</script>
+
+</body>
+</html>
